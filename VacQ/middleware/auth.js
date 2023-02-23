@@ -31,8 +31,22 @@ exports.protect = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err.stack);
-    return res
-      .status(401)
-      .json({ success: false, error: "Not authorized to access this route" });
+    return res.status(401).json({
+      success: false,
+      error: `catch error: Not authorize to access this route`,
+    });
   }
+};
+
+//Grant access to specific roles
+exports.authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        error: `${req.user.role} role is not authorized to access this route`,
+      });
+    }
+    next();
+  };
 };
