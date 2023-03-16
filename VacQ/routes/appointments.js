@@ -9,13 +9,16 @@ const {
 
 const router = express.Router({ mergeParams: true });
 
-const { protect } = require("../middleware/auth");
+const { protect, authorize } = require("../middleware/auth");
 
-router.route("/").get(protect, getAppointments).post(addAppointment);
+router
+  .route("/")
+  .get(protect, getAppointments)
+  .post(protect, authorize("user", "admin"), addAppointment);
 router
   .route("/:id")
-  .get(getAppointment)
-  .put(updateAppointment)
-  .delete(deleteAppointment);
+  .get(protect, getAppointment)
+  .put(protect, authorize("user", "admin"), updateAppointment)
+  .delete(protect, authorize("user", "admin"), deleteAppointment);
 
 module.exports = router;
