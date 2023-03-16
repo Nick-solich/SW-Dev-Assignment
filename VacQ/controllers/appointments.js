@@ -77,7 +77,7 @@ exports.addAppointment = async (req, res, next) => {
     //Check for existing appointment
     const existingAppointment = await Appointment.find({ user: req.user.id });
     //If the user is not an admin,they can only create 3 appointment.
-    if (existingAppointment.length > 3 && req.user.role !== "admin") {
+    if (existingAppointment.length >= 3 && req.user.role !== "admin") {
       return res.status(400).json({
         success: false,
         message: `The user with ID ${req.user.id} has already made 3 appointments`,
@@ -115,12 +115,10 @@ exports.updateAppointment = async (req, res, next) => {
       appointment.user.toString() !== req.user.id &&
       req.user.role !== "admin"
     ) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          message: `User ${req.user.id} is not authorized to update this appointment`,
-        });
+      return res.status(401).json({
+        success: false,
+        message: `User ${req.user.id} is not authorized to update this appointment`,
+      });
     }
 
     appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
