@@ -125,12 +125,13 @@ exports.updateHospital = async (req, res, next) => {
 //@access   Private
 exports.deleteHospital = async (req, res, next) => {
   try {
-    const hospital = await Hospital.findByIdAndDelete(req.params.id);
+    const hospital = await Hospital.findById(req.params.id);
 
     if (!hospital) {
       return res.status(400).json({ success: false });
     }
 
+    hospital.remove();
     res.status(200).json({ success: true, data: {} });
   } catch (err) {
     res.status(400).json({ success: false });
