@@ -33,7 +33,7 @@ function Register() {
 
     //redirect when logged in
     if (isSuccess || user) {
-      //   navigate("/");
+      navigate("/");
     }
 
     dispatch(reset());
