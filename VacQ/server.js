@@ -16,11 +16,7 @@ const appointments = require("./routes/appointments");
 
 const app = express();
 
-app.options(
-  "*",
-  cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 })
-);
-app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
+app.use(cors());
 //Add cookie parser
 app.use(cookieParser());
 
