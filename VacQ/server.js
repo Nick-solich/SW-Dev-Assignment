@@ -4,6 +4,9 @@ const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+// const xss = require("xss-clean");
+
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -26,6 +29,9 @@ app.use(express.json());
 
 //Sanitize data
 app.use(mongoSanitize());
+
+//Set security headers
+app.use(helmet());
 
 app.use("/api/v1/hospitals", hospitals);
 app.use("/api/v1/auth", auth);
