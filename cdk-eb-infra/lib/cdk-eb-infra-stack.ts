@@ -34,7 +34,7 @@ export class CdkEbInfraStack extends cdk.Stack {
     const myRole = iam.Role.fromRoleArn(
       this,
       "LabRole",
-      "arn:aws:iam::866153570037:role/LabRole",
+      "arn:aws:iam::!!putrecenthere!!:role/LabRole",
       {
         // Set the mutable property to false to prevent the CDK from modifying the role
         mutable: false,
