@@ -68,7 +68,7 @@ export class CdkEbInfraStack extends cdk.Stack {
         },
         {
           namespace: "aws:ec2:instances",
-          optionName: "InstanceType",
+          optionName: "InstanceTypes",
           value: "t2.micro",
         },
       ];
